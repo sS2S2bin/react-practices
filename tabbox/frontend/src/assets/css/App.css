@@ -55,6 +55,7 @@ body {
 	background-color: #fc6;
 }
 
+/* tabview  */
 .tab-box div {
 	width: calc(100% - 4px);
 	height: 200px;
@@ -63,3 +64,6 @@ body {
 	text-align: center;
 	line-height: 200px;
 }
+
+/* ul tabs */
+/* li tabitem */

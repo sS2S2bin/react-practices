@@ -1,17 +1,12 @@
 import React from 'react';
 import Tab from './Tab';
-function Tabs({tabs}) {
+import {_Tabs} from './assets/scss/Tabs.scss';
+
+function Tabs({tabs, selectTab}) {
     return (
-        <ul>
-            { tabs.map(e => <Tab 
-                                no={e.no}
-                                name={e.name}
-                                active={e.active}
-                                contents={e.contents} />
-                        )
-            }
+        <ul className={_Tabs}>
+            {tabs.map(t => <Tab key={t.no} no={t.no} name={t.name} active={t.active} selectTab={selectTab} />)}
         </ul>
-        
     );
 }
 
