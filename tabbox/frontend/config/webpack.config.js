@@ -5,7 +5,7 @@ module.exports = function(env) {
         mode: "none",
         entry: path.resolve(`src/index.js`),
         output: {
-            path: path.resolve('public'),
+            path: path.resolve('../backend/src/main/resources'),
             filename: 'assets/js/main.js',
             assetModuleFilename: 'assets/images/[hash][ext]'
         },
@@ -19,7 +19,16 @@ module.exports = function(env) {
                 }
             }, {
                 test: /\.(c|sa|sc)ss$/i,
-                use:['style-loader', 'css-loader', 'sass-loader']
+                use:[
+                    'style-loader', 
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true //env['css-module'] !== 'false'
+                        }
+                    }, 
+                    'sass-loader'
+                ]
             }, {
                 test: /\.(png|gif|jp?eg|svg|ico|tif?f|bmp)/i,
                 type: 'asset/resource'

@@ -8,9 +8,10 @@ function TabBox() {
     const [activeIndex, setActiveIndex ] = useState(0);
     const selectTab=(no)=>{
         // no와 실제 Index가 다르기 때문에
-        const index = tabs.findIndex(tab => tab.no === no);
+        // const index = tabs.findIndex(tab => tab.no === no);
+        // const index = tabs.map((e=>e.no).indexOf(no));
         
-        setActiveIndex(index);
+        setActiveIndex(tabs.findIndex(e=>e.no === no));
     }
 
     return (
