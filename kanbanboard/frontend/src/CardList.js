@@ -7,7 +7,7 @@ function CardList({data}) {
     const doingCardList = [];
     const doneCardList = [];
 
-    data.forEach(e=>{
+    {data && data.forEach(e=>{
         if(e.status ==="ToDo"){
             todoCardList.push(e);
         }
@@ -16,44 +16,44 @@ function CardList({data}) {
         }else if(e.status ==="Done"){
             doneCardList.push(e);
         }
-    });
+    });}
     return (
         <div>
             <div className={Card_List}>
             <h1>Todo</h1>
-            {todoCardList.map(e => (
+            {todoCardList && todoCardList.map(e => (
             <div key={e.no} className={_Card}>
                 <div className={`${Card_Title} ${Card_Title_Open}`}>{e.title}</div>
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                <TaskList tasks={e.tasks}/>
+                {e.tasks && <TaskList tasks={e.tasks}/>}
             </div>
             ))}
             </div>
 
             <div className={Card_List}>
             <h1>Doing</h1>
-            {doingCardList.map(e => (
+            {doingCardList && doingCardList.map(e => (
             <div key={e.no} className={_Card}>
                 <div className={`${Card_Title} ${Card_Title_Open}`}>{e.title}</div>
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                <TaskList tasks={e.tasks}/>
+                {e.tasks && <TaskList tasks={e.tasks}/>}
             </div>
             ))}
             </div>
 
             <div className={Card_List}>
             <h1>Done</h1>
-            {doneCardList.map(e => (
+            {doneCardList && doneCardList.map(e => (
             <div key={e.no} className={_Card}>
                 <div className={`${Card_Title} ${Card_Title_Open}`}>{e.title}</div>
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                <TaskList tasks={e.tasks}/>
+                {e.tasks && <TaskList tasks={e.tasks}/>}
             </div>
             ))}
             </div>

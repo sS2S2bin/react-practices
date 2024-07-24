@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cardNtask">
+
+    <!-- TaskVo resultMap -->
+    <resultMap id="TaskMap" type="taskvo">
+        <id property="no" column="task_no" />
+        <result property="name" column="name" />
+        <result property="done" column="done" />
+        <result property="cardNo" column="card_no" />
+    </resultMap>
+
+    <!-- CardVo resultMap -->
+    <resultMap id="CardMap" type="cardvo">
+        <id property="no" column="card_no" />
+        <result property="title" column="title" />
+        <result property="description" column="description" />
+        <result property="status" column="status" />
+        <collection property="tasks" ofType="com.poscodx.kanbanboard.vo.TaskVo" resultMap="TaskMap" />
+    </resultMap>
+    
+	<select id="findAll" resultMap="CardMap">
+		<![CDATA[
+		 select
+			c.no as card_no, c.title as title, c.description as description, c.status,
+			t.no AS task_no, t.name AS name, t.done AS done, t.card_no AS card_no
+			from card c left join task t
+			on c.no = t.card_no
+		]]>
+	</select>
+	
+	<select id="findAllCard" resultType="cardvo">
+		<![CDATA[
+		 select *
+			from card
+		]]>
+	</select>
+	
+	<select id="findAllTask" resultType="taskvo">
+		<![CDATA[
+		 select *
+		 from task
+		]]>
+	</select>
+
+<!-- 	
+
+		 select
+			c.no as card_no, c.title as title, c.description as description, c.status,
+			IFNULL(CAST(t.no AS CHAR), '') t.no AS task_no, 
+			    IFNULL(t.name, '') t.name AS name, 
+			    IFNULL(CAST(t.done AS CHAR), '') t.done AS done, 
+			    IFNULL(CAST(t.card_no AS CHAR), '') t.card_no AS card_no
+			from card c left join task t
+			on c.no = t.card_no
+<insert id="insert" parameterType="emaillistvo">
+		<![CDATA[
+		insert
+		  into emaillist
+		values (null, #{firstName}, #{lastName}, #{email})
+		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>		
+		</selectKey>
+	</insert> -->
+</mapper>
