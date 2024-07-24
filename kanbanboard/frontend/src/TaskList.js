@@ -1,5 +1,5 @@
 import React from 'react';
-import {Task_List} from './assets/scss/TaskList.scss';
+import {Task_List,Input_Add_Task} from './assets/scss/TaskList.scss';
 import Task from './Task';
 
 function TaskList({tasks}) {
@@ -11,6 +11,12 @@ function TaskList({tasks}) {
                 <Task no={e.no} name={e.name} done={e.done} />
             </ul>
             ))}
+            <input 
+                className={Input_Add_Task}
+                type='text'
+                placeholder='태스크 추가' 
+                // onClick={taskInputClick }    
+            />
         </div>
     );
 }
