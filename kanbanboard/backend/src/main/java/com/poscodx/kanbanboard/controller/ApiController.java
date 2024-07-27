@@ -1,16 +1,15 @@
 package com.poscodx.kanbanboard.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poscodx.kanbanboard.dto.JsonResult;
 import com.poscodx.kanbanboard.repository.TaskRepository;
-import com.poscodx.kanbanboard.vo.CardVo;
 import com.poscodx.kanbanboard.vo.TaskVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,5 +38,15 @@ public class ApiController {
 					.status(HttpStatus.OK)
 					.body(JsonResult.success(taskRepository.findAll()));
 	}
-
+	
+	@PostMapping("/api/tasks")
+	public ResponseEntity<JsonResult> create(@RequestBody TaskVo vo) {
+		log.info("Request[POST /api]:");
+		System.out.println("api tasks "+vo);
+		taskRepository.insert(vo);
+		
+		return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(vo));
+	}
 }

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Card_List, _Card, Card_Details, Card_Title, Card_Title_Open} from './assets/scss/CardList.scss';
+import React, { useState } from 'react';
+import { Card_Details, Card_List, Card_Title, Card_Title_Open, _Card } from './assets/scss/CardList.scss';
 import TaskList from './TaskList';
 
 function CardList({data}) {
@@ -8,15 +8,28 @@ function CardList({data}) {
     const doneCardList = [];
 
     {data && data.forEach(e=>{
-        if(e.status ==="ToDo"){
-            todoCardList.push(e);
-        }
-        else if(e.status ==="Doing"){
-            doingCardList.push(e);
-        }else if(e.status ==="Done"){
-            doneCardList.push(e);
-        }
+        if(e.status ==="ToDo"){todoCardList.push(e);}
+        else if(e.status ==="Doing"){doingCardList.push(e);
+        }else if(e.status ==="Done"){doneCardList.push(e);}
     });}
+    
+    const [cards, setCards] = useState(data);
+
+    const handleTaskAdded = (newTask, cardId) => {
+        // 새 태스크가 추가된 카드 찾기
+        const updatedCards = cards.map(card => {
+            if (card.no === cardId) {
+                return {
+                    ...card,
+                    tasks: [...card.tasks, newTask]
+                };
+            }
+            return card;
+        });
+        setCards(updatedCards);
+    };
+
+
     return (
         <div>
             <div className={Card_List}>
@@ -27,7 +40,8 @@ function CardList({data}) {
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                {e.tasks && <TaskList tasks={e.tasks}/>}
+                {e.tasks && <TaskList cardNo={e.no} key={e.tasks.no} tasks={e.tasks} status={e.status} />}
+                
             </div>
             ))}
             </div>
@@ -40,7 +54,7 @@ function CardList({data}) {
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                {e.tasks && <TaskList tasks={e.tasks}/>}
+                {e.tasks && <TaskList key={e.tasks.no} tasks={e.tasks} status={e.status} />}
             </div>
             ))}
             </div>
@@ -53,7 +67,7 @@ function CardList({data}) {
                 <div className={Card_Details}>
                     {e.description}
                 </div>
-                {e.tasks && <TaskList tasks={e.tasks}/>}
+                {e.tasks && <TaskList key={e.tasks.no} tasks={e.tasks} status={e.status} />}
             </div>
             ))}
             </div>

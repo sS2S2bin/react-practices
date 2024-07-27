@@ -26,4 +26,8 @@ public class TaskRepository {
 	public List<TaskVo> findAllTask(){
 		return sqlSession.selectList("cardNtask.findAllTask");	
 		}
+
+	public void insert(TaskVo vo) {
+		sqlSession.insert("cardNtask.insertTask", vo);
+		}
 }

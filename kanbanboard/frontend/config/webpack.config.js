@@ -40,6 +40,9 @@ module.exports = function(env) {
             liveReload: true,
             compress: true,
             hot: false,
+            static: {
+                directory: path.resolve("./public"),
+            },
             proxy: [{
                 context: ['/api'],
                 target: 'http://localhost:8080/'
